@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { Wireframe } from 'three/examples/jsm/Addons.js'
+import gsap from 'gsap'
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
@@ -62,21 +62,24 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.render(scene, camera)
 
-const clock = new THREE.Clock()
-
+// const clock = new THREE.Clock()
+gsap.to(cube.position,{duration:1,delay:1,x:2, y:1})
+gsap.to(cube.position,{duration:1,delay:3,x:-1,y:0})
+gsap.to(cube.position,{duration:1,delay:5,x:2, y:-1})
+gsap.to(cube.position,{duration:1,delay:7,x:-2, y:-1})
 const tick = () =>
 {
-    const elapsedTime = clock.getElapsedTime()
+    // const elapsedTime = clock.getElapsedTime()
 
-    console.log(elapsedTime)
+    // console.log(elapsedTime)
 
-    cube.position.y = Math.sin(elapsedTime)
-    cube.position.x = Math.cos(elapsedTime)
-    cube.scale.y = Math.cos(elapsedTime)
-    cube2.position.y = Math.cos(elapsedTime)
-    cube2.rotation.y = Math.cos(elapsedTime)
-    cube3.position.y = Math.cos(elapsedTime)
-    cube3.rotation.y = -Math.cos(elapsedTime)
+    // cube.position.y = Math.sin(elapsedTime)
+    // cube.position.x = Math.cos(elapsedTime)
+    // cube.scale.y = Math.cos(elapsedTime)
+    // cube2.position.y = Math.cos(elapsedTime)
+    // cube2.rotation.y = Math.cos(elapsedTime)
+    // cube3.position.y = Math.cos(elapsedTime)
+    // cube3.rotation.y = -Math.cos(elapsedTime)
     
     camera.lookAt(cube.position)
 
