@@ -1,16 +1,11 @@
-# Three.js Journey
+# Three.js Journey - Bölüm 6
 
-## Setup
-Download [Node.js](https://nodejs.org/en/download/).
-Run this followed commands:
+Bu proje, [Three.js Journey](https://threejs-journey.com/) kursunun 6. bölümü kapsamında oluşturulmuştur. 
 
-``` bash
-# Install dependencies (only the first time)
-npm install
-
-# Run the local server at localhost:8080
-npm run dev
-
-# Build for production in the dist/ directory
-npm run build
-```
+## 🚀 Proje Açıklaması
+Bu bölümde şunları öğrendim ve uyguladım:
+- **Three.js sahnesi oluşturma**
+- **Kamera ve ışık ayarları**
+- **Geometriler ve materyaller ile çalışma**
+- **OrbitControls kullanımı**
+- **Objelerin animasyonu ve etkileşimler**
