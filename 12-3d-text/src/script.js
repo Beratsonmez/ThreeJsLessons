@@ -1,6 +1,10 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
+import { FontLoader } from 'three/addons/loaders/FontLoader.js';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js';
 import GUI from 'lil-gui'
+import { positionGeometry, texture } from 'three/tsl';
+
 
 /**
  * Base
@@ -13,21 +17,111 @@ const canvas = document.querySelector('canvas.webgl')
 
 // Scene
 const scene = new THREE.Scene()
-
+const axesHelper = new THREE.AxesHelper
+scene.add(axesHelper)
 /**
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
+const matcapTexture = textureLoader.load('/textures/matcaps/4.png')
+matcapTexture.colorSpace = THREE.SRGBColorSpace
+/**
+ * Fonts
+ */
+const fontLoader = new FontLoader()
+fontLoader.load(
+    '/fonts/Garamond.json',
+    ( font ) => {
+		const textGeometry = new TextGeometry(
+            'Welcome to my portfolio',
+            {
+                font:font,
+                size:0.2,
+                depth: 0.1,
+                curveSegments: 12,
+                bevelEnabled: false,
+                bevelThickness: 0.02,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 4
+            }
+            
+        )
+        // textGeometry.computeBoundingBox()
+        // console.log(textGeometry.boundingBox)
+        // textGeometry.translate(
+        //     -textGeometry.boundingBox.max.x * 0.5,
+        //     -textGeometry.boundingBox.max.y * 0.5,
+        //     -textGeometry.boundingBox.max.z * 0.5
+        // )
+        const material = new THREE.MeshMatcapMaterial()
+        const textMesh = new THREE.Mesh(textGeometry,material)
+        textGeometry.center()
+        textMesh.position.y = -0.8
+        material.matcap = matcapTexture
+        scene.add(textMesh)
+        
+        const donutGeometry = new THREE.TorusGeometry(0.3,0.2,20,45)  
+
+        for (let i = 0; i < 100; i++)
+        {
+            const donut = new THREE.Mesh(donutGeometry,material)
+
+            donut.position.x = (Math.random() - 0.5) * 10
+            donut.position.y = (Math.random() - 0.5) * 10
+            donut.position.z = (Math.random() - 0.5) * 10
+
+            donut.rotation.x = Math.random() * Math.PI
+            donut.rotation.y = Math.random() * Math.PI
+
+            const scale = Math.random()
+            donut.scale.set(scale,scale,scale)
+
+            scene.add(donut)
+        }
+	}
+)
+
+fontLoader.load(
+    '/fonts/ShamsonRegular.json',
+    ( font ) => {
+		const textGeometry = new TextGeometry(
+            'Letters From the Front',
+            {
+                font:font,
+                size:0.5,
+                depth: 0.1,
+                curveSegments: 12,
+                bevelEnabled: false,
+                bevelThickness: 0.02,
+                bevelSize: 0.02,
+                bevelOffset: 0,
+                bevelSegments: 4
+            }
+            
+        )
+        // textGeometry.computeBoundingBox()
+        // console.log(textGeometry.boundingBox)
+        // textGeometry.translate(
+        //     -textGeometry.boundingBox.max.x * 0.5,
+        //     -textGeometry.boundingBox.max.y * 0.5,
+        //     -textGeometry.boundingBox.max.z * 0.5
+        // )
+        const textMaterial = new THREE.MeshMatcapMaterial()
+        const textMesh = new THREE.Mesh(textGeometry,textMaterial)
+        textGeometry.center()
+        
+        textMaterial.matcap = matcapTexture
+        textMaterial.side = THREE.DoubleSide
+        textGeometry.center()
+        scene.add(textMesh)
+	}
+)
 
 /**
  * Object
  */
-const cube = new THREE.Mesh(
-    new THREE.BoxGeometry(1, 1, 1),
-    new THREE.MeshBasicMaterial()
-)
 
-scene.add(cube)
 
 /**
  * Sizes
